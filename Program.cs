@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseSwagger();
+app.UseSwagger(); 
 app.UseSwaggerUI();
 
 app.MapPost("/phases", async ([FromBody] Phase phase, IDynamoDBContext db) =>
