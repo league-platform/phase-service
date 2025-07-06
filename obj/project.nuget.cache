@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "dgSpecHash": "uyoLoeDBBPI=",
+  "success": true,
+  "projectFilePath": "/Users/danilo/Documents/Universidad/Distribuida/Proyecto Final/Repositories/phase-service/phase-service.csproj",
+  "expectedPackageFiles": [
+    "/Users/danilo/.nuget/packages/awssdk.core/3.7.102/awssdk.core.3.7.102.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/awssdk.dynamodbv2/3.7.101.2/awssdk.dynamodbv2.3.7.101.2.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/swashbuckle.aspnetcore/6.5.0/swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/swashbuckle.aspnetcore.swagger/6.5.0/swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.5.0/swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.5.0/swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/microsoft.netcore.app.ref/7.0.20/microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.20/microsoft.aspnetcore.app.ref.7.0.20.nupkg.sha512",
+    "/Users/danilo/.nuget/packages/microsoft.netcore.app.host.osx-x64/7.0.20/microsoft.netcore.app.host.osx-x64.7.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}
