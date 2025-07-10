@@ -28,19 +28,31 @@ jobs:
       - name: Deploy to EC2 QA
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@$HOST << 'EOF'
+            # Update packages
             sudo dnf update -y
-            sudo dnf install -y git docker dotnet-sdk-7.0
+            sudo dnf install -y git yum-utils
 
+            # Install Docker from official Docker repo
+            sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+            sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+            # Enable Docker and add ec2-user to docker group
             sudo systemctl enable --now docker
             sudo usermod -aG docker ec2-user
 
+            # Install .NET SDK 7.0 from Microsoft
+            sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+            sudo dnf install -y dotnet-sdk-7.0
+
+            # Install Docker Compose v2
             mkdir -p ~/.docker/cli-plugins
-            curl -SL https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-linux-x86_64               -o ~/.docker/cli-plugins/docker-compose
+            curl -SL https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-linux-x86_64 \
+              -o ~/.docker/cli-plugins/docker-compose
             chmod +x ~/.docker/cli-plugins/docker-compose
             sudo ln -sf ~/.docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
 
+            # Go to EC2 home and clone repo
             cd /home/ec2-user
-
             if [ ! -d phase-service ]; then
               git clone --branch qa https://github.com/league-platform/phase-service.git
             fi
@@ -54,3 +66,4 @@ jobs:
             docker compose down || true
             docker compose up -d --build
           EOF
+
