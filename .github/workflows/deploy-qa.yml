@@ -29,18 +29,23 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@$HOST << 'EOF'
             sudo dnf update -y
-            sudo dnf install -y git docker dotnet-sdk-7.0
-
+            sudo dnf install -y git docker tar gzip curl iptables
             sudo systemctl enable --now docker
             sudo usermod -aG docker ec2-user
 
-            mkdir -p ~/.docker/cli-plugins
-            curl -SL https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-linux-x86_64               -o ~/.docker/cli-plugins/docker-compose
-            chmod +x ~/.docker/cli-plugins/docker-compose
-            sudo ln -sf ~/.docker/cli-plugins/docker-compose /usr/local/bin/docker-compose
+            # Docker Compose v2
+            sudo mkdir -p /usr/local/lib/docker/cli-plugins
+            sudo curl -SL https://github.com/docker/compose/releases/download/v2.27.1/docker-compose-linux-x86_64 \
+              -o /usr/local/lib/docker/cli-plugins/docker-compose
+            sudo chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+            # .NET SDK 7.0 (manual installation)
+            curl -O https://download.visualstudio.microsoft.com/download/pr/4f8c1232-01b3-4fc2-88d2-d86ae1b308a2/dcbe5f61fbc3a12f5d1d76c3503fa587/dotnet-sdk-7.0.400-linux-x64.tar.gz
+            sudo mkdir -p /opt/dotnet
+            sudo tar zxf dotnet-sdk-7.0.400-linux-x64.tar.gz -C /opt/dotnet
+            sudo ln -sf /opt/dotnet/dotnet /usr/local/bin/dotnet
 
             cd /home/ec2-user
-
             if [ ! -d phase-service ]; then
               git clone --branch qa https://github.com/league-platform/phase-service.git
             fi
@@ -51,6 +56,10 @@ jobs:
             git reset --hard
             git pull origin qa
 
-            docker compose down || true
-            docker compose up -d --build
+            sudo docker compose down || true
+            sudo docker compose up -d --build
           EOF
+
+
+
+
