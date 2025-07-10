@@ -29,7 +29,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@$HOST << 'EOF'
             sudo dnf update -y
-            sudo dnf install -y git docker tar gzip curl
+            sudo dnf install -y git docker tar gzip curl iptables
             sudo systemctl enable --now docker
             sudo usermod -aG docker ec2-user
 
@@ -59,6 +59,7 @@ jobs:
             sudo docker compose down || true
             sudo docker compose up -d --build
           EOF
+
 
 
 
